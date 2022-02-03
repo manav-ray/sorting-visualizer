@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {bubbleSort} from './../algorithms/BubbleSort';
 import { Button } from 'react-bootstrap';
 import './../styles.css'
 
@@ -25,27 +26,16 @@ export default function SortingVisualizer () {
 
 
     const bubbleSortVisualizer = () => {
-        const visualArray = array.slice();
+        const animations = bubbleSort(array);
 
-        var timeout = 100;
+        for(let i = 0; i < animations.length; i++) {
+            const bars = document.getElementsByClassName("bar");
 
-        for(var i = 0; i < visualArray.length; i++) {
-            for (var j = 0; j < (visualArray.length - i - 1); j++) {
-                if(visualArray[j] > visualArray[j+1]) {
-                    const currArr = document.getElementsByClassName("bar");
-
-                    var temp = visualArray[j];
-                    visualArray[j] = visualArray[j+1];
-                    visualArray[j+1] = temp;
-
-                    setTimeout(() => {
-                        currArr[j].style.height = `${visualArray[j+1]}px`
-                        currArr[j+1].style.height = `${temp}px`
-                    }, timeout)
-
-                    timeout += 100;
-                }
-            }
+            setTimeout(() => {
+                const [barIdx, barHeight] = animations[i];
+                bars[barIdx].style.height = `${barHeight}px`
+                bars[barHeight].style.height = `${barIdx}px`
+            }, i * 10)
         }
     }
 
