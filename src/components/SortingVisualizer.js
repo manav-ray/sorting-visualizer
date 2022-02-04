@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {bubbleSort} from './../algorithms/BubbleSort';
-import { Button } from 'react-bootstrap';
+import {selectionSort} from './../algorithms/SelectionSort';
+import { Button, Dropdown, DropdownButton } from 'react-bootstrap';
 import './../styles.css'
 
 export default function SortingVisualizer () {
@@ -11,14 +12,14 @@ export default function SortingVisualizer () {
         const width = window.innerWidth;
         const height = window.innerHeight;
 
-        initArray(height / 1.2, width / 10);
+        initArray(height / 1.3, width / 10);
 
 
         function handleResize() {
             const width = window.innerWidth;
             const height = window.innerHeight;
 
-            initArray(height / 1.2, width / 10);
+            initArray(height / 1.3, width / 10);
         }
 
         window.addEventListener('resize', handleResize);
@@ -30,15 +31,31 @@ export default function SortingVisualizer () {
 
         for(let i = 0; i < animations.length; i++) {
             const bars = document.getElementsByClassName("bar");
-
             setTimeout(() => {
-                const [barIdx, barHeight] = animations[i];
-                bars[barIdx].style.height = `${barHeight}px`
-                bars[barHeight].style.height = `${barIdx}px`
-            }, i * 10)
+                const [barIdx1, barIdx2, barHeight1, barHeight2] = animations[i];
+
+                bars[barIdx1].style.height = `${barHeight2}px`
+                bars[barIdx2].style.height = `${barHeight1}px`
+
+            }, i * 5)
         }
     }
 
+
+    const selectionSortVisualizer = () => {
+        const animations = selectionSort(array);
+
+        for(let i = 0; i < animations.length; i++) {
+            const bars = document.getElementsByClassName("bar");
+            setTimeout(() => {
+                const [barIdx1, barIdx2, barHeight1, barHeight2] = animations[i];
+
+                bars[barIdx1].style.height = `${barHeight2}px`
+                bars[barIdx2].style.height = `${barHeight1}px`
+
+            }, i * 5)
+        }
+    }
 
 
     const initArray = (height, width) => {
@@ -56,8 +73,11 @@ export default function SortingVisualizer () {
     return (
         <div>
             <div className="btn-container">
-                <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={() => initArray(window.innerHeight / 1.2, window.innerWidth / 10)}>Generate New Array</Button>
-                <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={bubbleSortVisualizer}>Bubble Sort</Button>
+                <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={() => window.location.reload(false)}>Generate New Array</Button>
+                <DropdownButton style={{marginRight: '10px'}} title="Select Algorithm">
+                    <Dropdown.Item onClick={bubbleSortVisualizer}>Bubble Sort</Dropdown.Item>
+                    <Dropdown.Item onClick={selectionSortVisualizer}>Selection Sort</Dropdown.Item>
+                </DropdownButton>
             </div>
 
             <div className="container">
