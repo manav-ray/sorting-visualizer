@@ -1,5 +1,3 @@
-
-// Most of this code is taken from GeeksforGeeks
 // https://www.geeksforgeeks.org/bubble-sort-algorithms-by-using-javascript/ 
 export const bubbleSort = (arr) => {
 

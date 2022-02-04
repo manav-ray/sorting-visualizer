@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {bubbleSort} from './../algorithms/BubbleSort';
 import {selectionSort} from './../algorithms/SelectionSort';
+import {insertionSort} from './../algorithms/InsertionSort';
 import { Button, Dropdown, DropdownButton } from 'react-bootstrap';
 import './../styles.css'
 
@@ -37,13 +38,13 @@ export default function SortingVisualizer () {
                 bars[barIdx1].style.height = `${barHeight2}px`
                 bars[barIdx2].style.height = `${barHeight1}px`
 
-            }, i * 5)
+            }, i * 2)
         }
     }
 
 
     const selectionSortVisualizer = () => {
-        const animations = selectionSort(array);
+        const animations = selectionSort(array, array.length);
 
         for(let i = 0; i < animations.length; i++) {
             const bars = document.getElementsByClassName("bar");
@@ -53,7 +54,23 @@ export default function SortingVisualizer () {
                 bars[barIdx1].style.height = `${barHeight2}px`
                 bars[barIdx2].style.height = `${barHeight1}px`
 
-            }, i * 5)
+            }, i * 50)
+        }
+    }
+
+
+    const insertionSortVisualizer = () => {
+        const animations = insertionSort(array, array.length);
+
+        for(let i = 0; i < animations.length; i++) {
+            const bars = document.getElementsByClassName("bar");
+            setTimeout(() => {
+                const [barIdx1, barIdx2, barHeight1, barHeight2] = animations[i];
+
+                bars[barIdx1].style.height = `${barHeight2}px`
+                bars[barIdx2].style.height = `${barHeight1}px`
+
+            }, i * 1)
         }
     }
 
@@ -77,6 +94,7 @@ export default function SortingVisualizer () {
                 <DropdownButton style={{marginRight: '10px'}} title="Select Algorithm">
                     <Dropdown.Item onClick={bubbleSortVisualizer}>Bubble Sort</Dropdown.Item>
                     <Dropdown.Item onClick={selectionSortVisualizer}>Selection Sort</Dropdown.Item>
+                    <Dropdown.Item onClick={insertionSortVisualizer}>Insertion Sort</Dropdown.Item>
                 </DropdownButton>
             </div>
 
