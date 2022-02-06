@@ -13,14 +13,14 @@ export default function SortingVisualizer () {
         const width = window.innerWidth;
         const height = window.innerHeight;
 
-        initArray(height / 1.3, width / 10);
+        initArray(height / 1.3, width / 15);
 
 
         function handleResize() {
             const width = window.innerWidth;
             const height = window.innerHeight;
 
-            initArray(height / 1.3, width / 10);
+            initArray(height / 1.3, width / 15);
         }
 
         window.addEventListener('resize', handleResize);
@@ -65,10 +65,21 @@ export default function SortingVisualizer () {
         for(let i = 0; i < animations.length; i++) {
             const bars = document.getElementsByClassName("bar");
             setTimeout(() => {
-                const [barIdx1, barIdx2, barHeight1, barHeight2] = animations[i];
+                const type = animations[i][0];
 
-                bars[barIdx1].style.height = `${barHeight2}px`
-                bars[barIdx2].style.height = `${barHeight1}px`
+                if (type === 0) {
+                    const barIdx1 = animations[i][1];
+                    const barIdx2 = animations[i][2];
+                    const barHeight1 = animations[i][3];
+                    const barHeight2 = animations[i][4];
+                    bars[barIdx1].style.height = `${barHeight2}px`
+                    bars[barIdx2].style.height = `${barHeight1}px`
+                }
+                else {
+                    const barIdx = animations[i][1];
+                    const barHeight = animations[i][2];
+                    bars[barIdx].style.height = `${barHeight}px`
+                }
 
             }, i * 1)
         }

@@ -15,12 +15,13 @@ export const insertionSort = (arr, n) => {
         while (j >= 0 && arr[j] > key)
         { 
 
-            animations.push([j, j+1, arr[j], arr[j+1]]);
+            animations.push([0, j, j+1, arr[j], arr[j+1]]);
 
             arr[j + 1] = arr[j]; 
             j = j - 1; 
         } 
         arr[j + 1] = key; 
+        animations.push([1, j+1, key]);
     }
 
     return animations
