@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {bubbleSort} from './../algorithms/BubbleSort';
 import {selectionSort} from './../algorithms/SelectionSort';
 import {insertionSort} from './../algorithms/InsertionSort';
+import {heapSort} from './../algorithms/HeapSort';
 import { Button, Dropdown, DropdownButton } from 'react-bootstrap';
 import './../styles.css'
 
@@ -86,6 +87,21 @@ export default function SortingVisualizer () {
     }
 
 
+    const heapSortVisualizer = () => {
+        const animations = heapSort(array);
+
+        for(let i = 0; i < animations.length; i++) {
+            const bars = document.getElementsByClassName("bar");
+            setTimeout(() => {
+                const [barIdx, barHeight] = animations[i];
+
+                bars[barIdx].style.height = `${barHeight}px`
+
+            }, i * 50)
+        }
+    }
+
+
     const initArray = (height, width) => {
         const tempArray = [];
 
@@ -106,6 +122,7 @@ export default function SortingVisualizer () {
                     <Dropdown.Item onClick={bubbleSortVisualizer}>Bubble Sort</Dropdown.Item>
                     <Dropdown.Item onClick={selectionSortVisualizer}>Selection Sort</Dropdown.Item>
                     <Dropdown.Item onClick={insertionSortVisualizer}>Insertion Sort</Dropdown.Item>
+                    <Dropdown.Item onClick={heapSortVisualizer}>Heap Sort</Dropdown.Item>
                 </DropdownButton>
             </div>
 
